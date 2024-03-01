@@ -1,10 +1,10 @@
-# ChatGPT for Edge
+# Spark Assistant Search
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/wong2/chatgpt-google-extension/pre-release-build.yml)
 [![Twitter Follow](https://img.shields.io/twitter/follow/chatgpt4google?style=social)](https://twitter.com/chatgpt4google)
 ![License](https://img.shields.io/github/license/wong2/chatgpt-google-extension)
 
-A browser extension to display ChatGPT response alongside Google (and other search engines) results
+A browser extension to display Spark response alongside Google (and other search engines) results
 
 [Install from Edge Add-on Store](https://microsoftedge.microsoft.com/addons/detail/chatgpt-for-edge-all-po/fkjiikdgpjeaocggailpihiklianahgp)
 
@@ -38,3 +38,11 @@ Google, Baidu, Bing, DuckDuckGo, Brave, Yahoo, Naver, Yandex, Kagi, Searx
 3. `npm run build`
 4. Load `build/chromium/` or `build/firefox/` directory to your browser
 
+## todo list
+1. 对话窗口
+2. 划词翻译
+3. 页面概要
+4. 后台用户管理
+5. 后台token控制
+6. 后台留痕
+7. 订阅管理

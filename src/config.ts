@@ -1,30 +1,35 @@
+// 导入lodash的defaults函数和Browser对象
 import { defaults } from 'lodash-es'
 import Browser from 'webextension-polyfill'
 
+// 触发模式枚举
 export enum TriggerMode {
   Always = 'always',
   QuestionMark = 'questionMark',
   Manually = 'manually',
 }
 
+// 触发模式对应的文字描述
 export const TRIGGER_MODE_TEXT = {
-  [TriggerMode.Always]: { title: 'Always', desc: 'ChatGPT is queried on every search' },
+  [TriggerMode.Always]: { title: '总是', desc: '在每次搜索时都查询 Spark' },
   [TriggerMode.QuestionMark]: {
-    title: 'Question Mark',
-    desc: 'When your query ends with a question mark (?)',
+    title: '问号',
+    desc: '当您的查询以问号结尾时（?）',
   },
   [TriggerMode.Manually]: {
-    title: 'Manually',
-    desc: 'ChatGPT is queried when you manually click a button',
+    title: '手动',
+    desc: '当您手动点击按钮时查询 Spark',
   },
 }
 
+// 主题枚举
 export enum Theme {
   Auto = 'auto',
   Light = 'light',
   Dark = 'dark',
 }
 
+// 语言枚举
 export enum Language {
   Auto = 'auto',
   English = 'english',
@@ -37,34 +42,42 @@ export enum Language {
   Portuguese = 'portuguese',
 }
 
+// 用户配置默认值
 const userConfigWithDefaultValue = {
   triggerMode: TriggerMode.Always,
   theme: Theme.Auto,
   language: Language.Auto,
 }
 
+// 用户配置类型
 export type UserConfig = typeof userConfigWithDefaultValue
 
+// 获取用户配置
 export async function getUserConfig(): Promise<UserConfig> {
   const result = await Browser.storage.local.get(Object.keys(userConfigWithDefaultValue))
   return defaults(result, userConfigWithDefaultValue)
 }
 
+// 更新用户配置
 export async function updateUserConfig(updates: Partial<UserConfig>) {
   console.debug('update configs', updates)
   return Browser.storage.local.set(updates)
 }
 
+// AI提供者类型枚举
 export enum ProviderType {
+  Spark = 'Spark',
   ChatGPT = 'chatgpt',
   GPT3 = 'gpt3',
 }
 
+// GPT-3提供者配置接口
 interface GPT3ProviderConfig {
   model: string
   apiKey: string
 }
 
+// 提供者配置接口
 export interface ProviderConfigs {
   provider: ProviderType
   configs: {
@@ -72,8 +85,9 @@ export interface ProviderConfigs {
   }
 }
 
+// 获取提供者配置
 export async function getProviderConfigs(): Promise<ProviderConfigs> {
-  const { provider = ProviderType.ChatGPT } = await Browser.storage.local.get('provider')
+  const { provider = ProviderType.Spark } = await Browser.storage.local.get('provider')
   const configKey = `provider:${ProviderType.GPT3}`
   const result = await Browser.storage.local.get(configKey)
   return {
@@ -84,6 +98,7 @@ export async function getProviderConfigs(): Promise<ProviderConfigs> {
   }
 }
 
+// 保存提供者配置
 export async function saveProviderConfigs(
   provider: ProviderType,
   configs: ProviderConfigs['configs'],

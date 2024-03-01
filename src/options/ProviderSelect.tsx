@@ -23,11 +23,11 @@ const ConfigPanel: FC<ConfigProps> = ({ config, models }) => {
   const save = useCallback(async () => {
     if (tab === ProviderType.GPT3) {
       if (!apiKeyBindings.value) {
-        alert('Please enter your OpenAI API key')
+        alert('请输入您的 OpenAI API 密钥')
         return
       }
       if (!model || !models.includes(model)) {
-        alert('Please select a valid model')
+        alert('请选择有效型号')
         return
       }
     }
@@ -37,20 +37,23 @@ const ConfigPanel: FC<ConfigProps> = ({ config, models }) => {
         apiKey: apiKeyBindings.value,
       },
     })
-    setToast({ text: 'Changes saved', type: 'success' })
+    setToast({ text: '更改已保存', type: 'success' })
   }, [apiKeyBindings.value, model, models, setToast, tab])
 
   return (
     <div className="flex flex-col gap-3">
       <Tabs value={tab} onChange={(v) => setTab(v as ProviderType)}>
+        <Tabs.Item label="Spark" value={ProviderType.Spark}>
+          基于星火认知大模型能力实现的搜素引擎助理，无需科学上网，免费且高效。
+        </Tabs.Item>
         <Tabs.Item label="ChatGPT webapp" value={ProviderType.ChatGPT}>
-          The API that powers ChatGPT webapp, free, but sometimes unstable
+          为 ChatGPT Web 应用程序提供支持的 API，需要科学上网，免费，但有时不稳定。
         </Tabs.Item>
         <Tabs.Item label="OpenAI API" value={ProviderType.GPT3}>
           <div className="flex flex-col gap-2">
             <span>
-              OpenAI official API, more stable,{' '}
-              <span className="font-semibold">charge by usage</span>
+            OpenAI官方API,{' '}
+              <span className="font-semibold">按使用量收费</span>
             </span>
             <div className="flex flex-row gap-2">
               <Select
@@ -68,20 +71,20 @@ const ConfigPanel: FC<ConfigProps> = ({ config, models }) => {
               <Input htmlType="password" label="API key" scale={2 / 3} {...apiKeyBindings} />
             </div>
             <span className="italic text-xs">
-              You can find or create your API key{' '}
+              您可以找到或创建您的 API 密钥{' '}
               <a
                 href="https://platform.openai.com/account/api-keys"
                 target="_blank"
                 rel="noreferrer"
               >
-                here
+                这里
               </a>
             </span>
           </div>
         </Tabs.Item>
       </Tabs>
       <Button scale={2 / 3} ghost style={{ width: 20 }} type="success" onClick={save}>
-        Save
+        保存
       </Button>
     </div>
   )

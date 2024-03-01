@@ -25,6 +25,7 @@ async function runEsbuild() {
     ],
     bundle: true,
     outdir: outdir,
+    minify: false, // 设置为false禁用压缩
     treeShaking: true,
     minify: true,
     legalComments: 'none',
