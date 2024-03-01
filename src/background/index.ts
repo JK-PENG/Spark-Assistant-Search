@@ -6,6 +6,10 @@ import { OpenAIProvider } from './providers/openai'
 import { SparkProvider } from './providers/spark'
 import { Provider } from './types'
 
+function buildPrompt(prompt: string): string {
+  return prompt
+}
+
 // 异步函数用于生成答案
 async function generateAnswers(port: Browser.Runtime.Port, question: string) {
   // 获取提供者配置
@@ -52,7 +56,7 @@ Browser.runtime.onConnect.addListener((port) => {
     console.debug('接收到消息', msg)
     try {
       // 生成答案并发送回端口
-      await generateAnswers(port, msg.question)
+      await generateAnswers(port, buildPrompt(msg.question))
     } catch (err: any) {
       console.error(err)
       port.postMessage({ error: err.message })
