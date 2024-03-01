@@ -13,10 +13,6 @@ export class SparkProvider implements Provider {
     this.modelResullt = ''
   }
 
-  private buildPrompt(prompt: string): string {
-    return prompt
-  }
-
   async getWebsocketUrl() {
     const apiKey = this.apiKey;
     const apiSecret = this.apiSecret;
