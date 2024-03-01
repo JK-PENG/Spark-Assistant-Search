@@ -46,6 +46,10 @@ export class SparkProvider implements Provider {
             "message": {
                 "text": [
                     {
+                      "role": "system",
+                      "content": "你作为我的智能助理，给我的女朋友解答问题，站在你的角度回答，不要代表我的身份。请你以小红书博主的文章结构，回答后续我宝贝提出的问题。你的回答应包括使用表情符号来增加趣味和互动，回答的文笔需要幽默风趣。"
+                    },
+                    {
                         "role": "user",
                         "content": prompt
                     }
